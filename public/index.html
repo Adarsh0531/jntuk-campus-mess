@@ -1,0 +1,322 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mess Menu</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="scroll-area">
+        <div class="app-container">
+          <header class="app-header">
+            <div class="header-icon hamburger-menu" id="hamburger-menu">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </div>
+            <h1>Today's Mess Menu</h1>
+          </header>
+
+          <!-- Hamburger Menu Dropdown -->
+          <div class="hamburger-dropdown" id="hamburger-dropdown" style="display: none;">
+            <div class="dropdown-item" id="contributors-option">Contributors</div>
+            <div class="dropdown-item" id="report-issue-option">Report Issue</div>
+            <div class="dropdown-item" id="notifications-option">Notifications</div>
+            <div class="dropdown-item" id="contribute-option">Contribute to the Project</div>
+          </div>
+
+          <main class="meals-container">
+            <section class="meal-section" data-meal="breakfast">
+              <h2>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  <ellipse cx="8" cy="14" rx="2" ry="1.5" fill="currentColor"/>
+                  <ellipse cx="16" cy="14" rx="2" ry="1.5" fill="currentColor"/>
+                  <rect x="6" y="16" width="4" height="1" fill="currentColor"/>
+                  <rect x="14" y="16" width="4" height="1" fill="currentColor"/>
+                </svg>
+                Breakfast
+              </h2>
+              <div class="meal-content">
+                <p class="placeholder">Tap to view items</p>
+              </div>
+            </section>
+
+            <section class="meal-section" data-meal="lunch">
+              <h2>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v10c0 1.1.9 2 2 2h2V4h-2c-1.1 0-2 .9-2 2z"/>
+                  <circle cx="8" cy="16" r="1" fill="currentColor"/>
+                  <circle cx="12" cy="16" r="1" fill="currentColor"/>
+                  <circle cx="16" cy="16" r="1" fill="currentColor"/>
+                </svg>
+                Lunch
+              </h2>
+              <div class="meal-content">
+                <p class="placeholder">Tap to view items</p>
+              </div>
+            </section>
+
+            <section class="meal-section" data-meal="dinner">
+              <h2>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  <ellipse cx="12" cy="16" rx="3" ry="2" fill="currentColor"/>
+                  <path d="M9 14c0-1 1-2 3-2s3 1 3 2" stroke="currentColor" stroke-width="1" fill="none"/>
+                </svg>
+                Dinner
+              </h2>
+              <div class="meal-content">
+                <p class="placeholder">Tap to view items</p>
+              </div>
+            </section>
+          </main>
+        </div>
+      </div>
+
+      <footer class="hostel-bar">
+        <button class="hostel-btn active" data-hostel="Ellora">Nalanda</button>
+        <button class="hostel-btn" data-hostel="Hampi">Narendra</button>
+        <button class="hostel-btn" data-hostel="Shilpa">Nataraj</button>
+        <button class="hostel-btn" data-hostel="Ajantha">Narmada</button>
+      </footer>
+
+      <!-- Add Item Modal -->
+      <div id="add-item-overlay" class="add-item-overlay" style="display: none;">
+        <div class="add-item-modal">
+          <h3>Add New Item</h3>
+          <form id="add-item-form">
+            <div class="form-group">
+              <label for="item-diet-type">Veg / Non-Veg</label>
+              <select id="item-diet-type">
+                <option value="">Optional</option>
+                <option value="veg">Veg</option>
+                <option value="non-veg">Non-Veg</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="item-names">Items *</label>
+              <textarea id="item-names" placeholder="Add one item per line or separate with commas.&#10;e.g., Idli&#10;Sambar&#10;Chutney" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="item-photo">Photo (optional)</label>
+              <div style="position: relative;">
+                <input type="file" id="item-photo" accept="image/jpeg,image/png,image/webp" style="display: none;" />
+                <button type="button" id="file-upload-btn" class="btn-camera" style="margin-right: 8px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                  Upload File
+                </button>
+                <button type="button" id="use-camera" class="btn-camera">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                  </svg>
+                  Use Camera
+                </button>
+              </div>
+              <div id="file-preview" class="file-preview" style="display: none;">
+                <span id="file-name"></span>
+                <button type="button" id="delete-file" class="btn-delete-file">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div id="camera-section" class="camera-section" style="display: none;">
+              <video id="camera-preview" autoplay playsinline muted></video>
+              <button type="button" id="capture-btn" class="btn-capture">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                  <circle cx="12" cy="13" r="4"></circle>
+                </svg>
+                Capture
+              </button>
+              <div id="preview-section" style="display: none;">
+                <img id="captured-preview" alt="Captured image" />
+                <button type="button" id="retake-btn" class="btn-retake">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+                    <path d="M21 3v5h-5"></path>
+                    <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+                    <path d="M3 21v-5h5"></path>
+                  </svg>
+                  Retake
+                </button>
+              </div>
+            </div>
+            <canvas id="capture-canvas" style="display: none;"></canvas>
+            <div class="form-group">
+              <label for="item-creator">Your name (optional)</label>
+              <input type="text" id="item-creator" placeholder="Your name" value="" />
+            </div>
+            <div id="add-status" class="add-status" style="display: none;"></div>
+            <div class="form-buttons">
+              <button type="button" id="cancel-add">Cancel</button>
+              <button type="submit" id="submit-item">Add Item</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Toast notification -->
+      <div id="toast" class="toast" style="display: none;">
+        <span id="toast-message"></span>
+      </div>
+
+      <!-- Contributors Modal -->
+     <!-- Contributors Modal -->
+<div id="contributors-modal" class="modal-overlay" style="display: none;">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Our Team</h3>
+      <button class="close-modal" id="close-contributors">&times;</button>
+    </div>
+    <div class="modal-content">
+      <div class="contributors-grid">
+        <div class="contributor-card">
+          <div class="contributor-avatar">S</div>
+          <div class="contributor-details">
+            <h4>ganga sagar</h4>
+            <p class="contributor-role">Creator & Lead Developer</p>
+            <div class="contributor-links">
+              <a href="" target="_blank" class="social-link" title="GitHub">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </a>
+              <a href="" target="_blank" class="social-link" title="LinkedIn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <!-- Report Issue Modal -->
+      <div id="report-issue-modal" class="modal-overlay" style="display: none;">
+        <div class="modal">
+          <div class="modal-header">
+            <h3>Report Issue</h3>
+            <button class="close-modal" id="close-report-issue">&times;</button>
+          </div>
+          <div class="modal-content">
+            <form id="report-issue-form">
+              <div class="form-group">
+                <label for="issue-name">Name (optional)</label>
+                <input type="text" id="issue-name" placeholder="Your name">
+              </div>
+              <div class="form-group">
+                <label for="issue-email">Email (optional)</label>
+                <input type="email" id="issue-email" placeholder="your.email@example.com">
+              </div>
+              <div class="form-group">
+                <label for="issue-hostel">Hostel</label>
+                <select id="issue-hostel" required>
+                  <option value="">Select hostel</option>
+                  <option value="Ellora">Nalanda</option>
+                  <option value="Hampi">Narendra</option>
+                  <option value="Shilpa">Nataraj</option>
+                  <option value="Ajantha">Narmada</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="issue-type">Issue Type</label>
+                <select id="issue-type" required>
+                  <option value="">Select type</option>
+                  <option value="Bug">Bug</option>
+                  <option value="Wrong menu">Wrong menu</option>
+                  <option value="Suggestion">Suggestion</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="issue-message">Message *</label>
+                <textarea id="issue-message" placeholder="Describe the issue..." required></textarea>
+              </div>
+              <div id="report-status" class="report-status" style="display: none;"></div>
+            </form>
+            <div class="form-buttons">
+              <button type="button" id="cancel-report" class="btn-cancel">Cancel</button>
+              <button type="submit" class="btn-submit">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notifications Modal -->
+      <div id="notifications-modal" class="modal-overlay" style="display: none;">
+        <div class="modal">
+          <div class="modal-header">
+            <h3>📢 Notifications</h3>
+            <button class="close-modal" id="close-notifications">&times;</button>
+          </div>
+          <div class="modal-content">
+            <!-- Send Notification Form -->
+            <form id="send-notification-form" style="margin-bottom: 24px;">
+              <div class="form-group">
+                <label for="notification-message">Send a Message *</label>
+                <textarea 
+                  id="notification-message" 
+                  placeholder="Type your message here..." 
+                  required
+                  rows="3"
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="notification-sender">Your Name (optional)</label>
+                <input 
+                  type="text" 
+                  id="notification-sender" 
+                  placeholder="Your name"
+                />
+              </div>
+              <button type="submit" class="btn-submit">Send Message</button>
+            </form>
+            
+            <!-- Notifications List -->
+            <div id="notifications-list-container">
+              <div id="notifications-list" class="notifications-list">
+                <div style="text-align: center; padding: 40px; color: #94a3b8;">
+                  Loading notifications...
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coming Soon Modal -->
+      <div id="coming-soon-modal" class="modal-overlay" style="display: none;">
+        <div class="coming-soon-modal">
+          <div class="coming-soon-content">
+            <button class="close-coming-soon" id="close-coming-soon">&times;</button>
+            <div class="coming-soon-text">
+              <h3>📸 Image Upload — Coming Soon</h3>
+              <p>Image upload and camera capture features will be available in a future update.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+
+  </body>
+</html>
