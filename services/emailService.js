@@ -5,8 +5,8 @@ const nodemailer = require('nodemailer');
 // 3. Go to Security → App passwords
 // 4. Generate app password for "Mail"
 // 5. Store in .env as:
-// MAIL_USER=your-email@gmail.com
-// MAIL_PASS=your-gmail-app-password
+// MAIL_USER=adarshreddy6374@gmail.com
+// MAIL_PASS=hrqdlgywfnuurlza
 
 // Create transporter
 const transporter = nodemailer.createTransport({
